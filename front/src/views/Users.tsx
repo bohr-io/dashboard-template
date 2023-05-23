@@ -5,7 +5,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import SearchIcon from '@mui/icons-material/Search';
-import { Box, Button, IconButton, Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Tooltip, Typography } from '@mui/material';
+import { Box, Button, IconButton, Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Tooltip, Typography, useMediaQuery } from '@mui/material';
 import { ChangeEventHandler, FC, FormEventHandler, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashInput from '../components/DashInput';
@@ -41,6 +41,7 @@ const orderReducer = (state: OrderState, newField: OrderState['field']) => ({
 })
 
 const Users: FC = () => {
+  const isMobile = useMediaQuery('(max-width: 650px)');
   const navigate = useNavigate()
   const { users, fetchUsers } = useUser()
   const [order, setOrder] = useReducer(orderReducer, { field: 'username', direction: 'asc' })
@@ -69,7 +70,7 @@ const Users: FC = () => {
   return (
     <main>
       <HeaderWrapper>
-        <Typography variant="h1">
+        <Typography variant="h1" sx={{ ml: isMobile ? "60px" : "230px"}}>
           Users
         </Typography>
         <Tooltip title="add user" arrow placement="left">
@@ -86,12 +87,12 @@ const Users: FC = () => {
       <Paper
         component="form"
         onSubmit={handleSearchSubmit}
-        sx={{ paddingBlock: 3.375, paddingInline: 4, mt: 4.5, mb: 3.75 }}
+        sx={{ paddingBlock: 3.375, paddingInline: 4, mt: 4.5, mb: 3.75, ml: isMobile ? "60px" : "230px" }}
       >
         <Typography variant="h2" sx={{ mb: 2.375 }}>
           Filter by
         </Typography>
-        <Box sx={{ display: 'flex', gap: 3.75 }}>
+        <Box sx={{ display: 'flex', gap: 3.75, flexDirection: isMobile ? 'column' : 'row' }}>
           <DashInput
             size="small"
             label="username"
@@ -103,7 +104,7 @@ const Users: FC = () => {
             size="small"
             label="email"
             name="email"
-            placeholder="email@email.com"
+            placeholder="email@example.com"
             onChange={handleSearchFormChange}
           />
           <Tooltip title="find user" arrow placement="left">
@@ -118,7 +119,7 @@ const Users: FC = () => {
           </Tooltip>
         </Box>
       </Paper>
-      <Paper sx={{ paddingBlock: 3.375, paddingInline: 4, minWidth: '100%' }}>
+      <Paper sx={{ paddingBlock: 3.375, paddingInline: 4, ml: isMobile ? "60px" : "230px" }}>
         <TableContainer>
           <Table sx={{ minWidth: '600px' }}>
             <TableHead>

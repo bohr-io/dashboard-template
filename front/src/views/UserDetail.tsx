@@ -1,5 +1,5 @@
 import { default as BackArrow } from '@mui/icons-material/ArrowBackIos';
-import { Box, Button, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, Typography, useMediaQuery } from '@mui/material';
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import DashInput from '../components/DashInput';
@@ -17,6 +17,7 @@ export default function UserDetail() {
   const { userId: idParam } = useParams()
   const { users, fetchUsers, showToast } = useUser()
   const [formData, setFormData] = useState(initialFormData)
+  const screenSize = useMediaQuery('(max-width: 650px)');
 
   const user = users.find((user) => user.id === idParam)
 
@@ -67,7 +68,7 @@ export default function UserDetail() {
       <Button
         LinkComponent="a"
         href="/dash/users"
-        sx={{ '.MuiButton-startIcon': { mr: 0 } }}
+        sx={{ '.MuiButton-startIcon': { mr: 0 }, ml: screenSize ? "60px" : "230px", }}
         onClick={handleBackLink}
       >
         <BackArrow sx={{ fontSize: '16px' }} />
@@ -78,6 +79,7 @@ export default function UserDetail() {
           component="span"
           color="primary"
           sx={{
+            ml: screenSize ? "60px" : "230px",
             fontSize: '20px',
             fontWeight: 700,
             '&::after': {
@@ -96,6 +98,7 @@ export default function UserDetail() {
       <Card
         component="form"
         onSubmit={handleSubmit}
+        sx={{ ml: screenSize ? "60px" : "230px" }}
       >
         <CardContent
           sx={{
